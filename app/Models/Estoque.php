@@ -9,7 +9,8 @@ class Estoque extends Model
 {
 
     protected $table = 'estoque';
-    #protected $fillable = ['titulo', 'message'];
 
     use HasFactory;
+
+    protected $guarded = ['id'];
 }

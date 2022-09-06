@@ -7,14 +7,13 @@ use App\Http\Requests\UpdateEstoqueRequest;
 #use App\Http\Request;
 use Illuminate\Http\Request;
 use App\Models\Estoque;
+use App\Http\Requests\EstoqueRequest;
 
 class EstoqueController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+
+
     public function index()
     {
         $estoque = Estoque::all();
@@ -26,11 +25,9 @@ class EstoqueController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+
+
     public function create()
     {
         return view('estoque.create', [
@@ -38,29 +35,23 @@ class EstoqueController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreEstoqueRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    
+
+
+    public function store(EstoqueRequest $request)
     {
-        $estoque = new Estoque;
-        $estoque->item = $request->item;
-        $estoque->tamanho = $request->tamanho;
-        $estoque->quantidade = $request->quantidade;
-        $estoque->save();
+        $validated = $request->validated();
+
+        $estoque = Estoque::create($validated);
+
+        request()->session()->flash('alert-success', 'Um novo Item foi adicionado ao estoque!');
 
         return redirect('/estoque');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Estoque  $estoque
-     * @return \Illuminate\Http\Response
-     */
+    
+
+
     public function show($id)
     {
         $estoque = Estoque::where('id', $id)->first();
@@ -72,12 +63,8 @@ class EstoqueController extends Controller
     }
     
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Estoque  $estoque
-     * @return \Illuminate\Http\Response
-     */
+    
+
     public function edit(Estoque $estoque)
     {
         return view('estoque.edit', [
@@ -85,33 +72,29 @@ class EstoqueController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateEstoqueRequest  $request
-     * @param  \App\Models\Estoque  $estoque
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Estoque $estoque)
-    {
-        
-        $estoque->item = $request->item;
-        $estoque->tamanho = $request->tamanho;
-        $estoque->quantidade = $request->quantidade;
-        $estoque->save();
+    
 
-        return redirect('/estoque');
+
+    public function update(EstoqueRequest $request, Estoque $estoque)
+    {
+        $validated = $request->validated();
+
+        $estoque->update($validated);
+
+        request()->session()->flash('alert-success', 'Item atualizado com sucesso');
+
+        return redirect("/estoque");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Estoque  $estoque
-     * @return \Illuminate\Http\Response
-     */
+    
+
+
     public function destroy(Estoque $estoque)
     {
         $estoque->delete();
+
+        request()->session()->flash('alert-info', 'Item deletado do estoque com sucesso.');
+
         return redirect('/estoque');
     }
 }

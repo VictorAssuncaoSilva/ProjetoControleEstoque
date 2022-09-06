@@ -1,8 +1,9 @@
 @extends('main')
 
+
 	@section('content')
 
-	<h3>--= Estoque =--</h3>
+	<h1>Estoque</h1>
 
 	<a href="/estoque/create">Adicione um novo item</a>
 
