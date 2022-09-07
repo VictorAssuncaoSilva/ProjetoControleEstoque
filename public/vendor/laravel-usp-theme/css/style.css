@@ -1,7 +1,8 @@
 /* Coloca cor de fundo no menu quando o item está ativo */
 .active {
-  background: lightgray;
+  background: black;
 }
+
 
 /* Cores para menu principal */
 

@@ -5,7 +5,10 @@
 
 	<h1>Estoque</h1>
 
-	<a href="/estoque/create">Adicione um novo item</a>
+
+	<a class="btn btn-outline-info" href="/estoque/create" role="button" text-decoration='none'>Novo Item</a>
+	<br>
+	
 
 	@forelse($estoque as $estoque)
 

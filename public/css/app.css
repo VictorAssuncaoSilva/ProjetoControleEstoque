@@ -1,0 +1,11 @@
+body{
+	background-color: lightgray;
+}
+
+font{
+	font-size: 20px;
+}
+
+.btnEditar{
+	text-decoration: none;
+}
